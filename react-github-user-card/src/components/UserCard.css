@@ -1,0 +1,33 @@
+.main {
+  margin: 5vh 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  padding: 1rem;
+  border: 2px solid black;
+  background: dimgray;
+  border-radius: 10px;
+  width: 20rem;
+  box-shadow: 0 3px 12px -6px black;
+  color: #17a2b8;
+}
+
+img {
+  width: 18rem;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: olivedrab;
+}
+
+hr {
+  width: 100%;
+  margin-top: 20px;
+}
