@@ -12,6 +12,7 @@ class UserCard extends React.Component {
     followers: [],
     searchUser: "",
   };
+
   async componentDidMount() {
     const [userInfo, followerInfo] = await Promise.all([
       axios.get("https://api.github.com/users/DonnaBallew"),
@@ -26,6 +27,34 @@ class UserCard extends React.Component {
     });
   }
 
+  handleChanges = (e) => {
+    this.setState({
+      searchUser: e.target.value,
+    });
+  };
+
+  getNewUser = () => {
+    axios
+      .get(`https://api.github.com/users/${this.state.searchUser}`)
+      .then((res) => {
+        this.setState({
+          image: res.data.avatar_url,
+          name: res.data.name,
+          login: res.data.login,
+          profileLink: res.data.html_url,
+        });
+        axios
+          .get(
+            `https://api.github.com/users/${this.state.searchUser}/followers`
+          )
+          .then((res) => {
+            this.setState({
+              followers: res.data,
+            });
+          });
+      });
+  };
+
   render() {
     return (
       <div className="main">
@@ -38,6 +67,15 @@ class UserCard extends React.Component {
           <hr />
           <div>
             <UserFollowers followers={this.state.followers} />
+          </div>
+          <br />
+          <div className="search">
+            <input
+              onChange={this.handleChanges}
+              type="text"
+              placeholder="Enter username"
+            />
+            <button onClick={this.getNewUser}>Search GitHub</button>
           </div>
         </div>
       </div>
