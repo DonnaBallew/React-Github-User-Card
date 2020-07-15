@@ -1,21 +1,42 @@
 import React from "react";
-import { Card, Icon, Image } from "semantic-ui-react";
+import axios from "axios";
+import UserFollowers from "./UserFollowers";
 
 class UserCard extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    image: {},
+    name: "",
+    login: "",
+    profileLink: "",
+    followers: [],
+    searchUser: "",
+  };
+  async componentDidMount() {
+    const [userInfo, followerInfo] = await Promise.all([
+      axios.get("https://api.github.com/users/DonnaBallew"),
+      axios.get("https://api.github.com/users/DonnaBallew/followers"),
+    ]);
+    this.setState({
+      image: userInfo.data.avatar_url,
+      name: userInfo.data.name,
+      login: userInfo.data.login,
+      profileLink: userInfo.data.html_url,
+      followers: followerInfo.data,
+    });
   }
 
   render() {
-    // console.log(this.props.users)
     return (
-      <Card>
-        <Image src={this.props.users.avatar_url} wrapped ui={false} />
-        <Card.Content>
-          <Card.Header>Github:@{this.props.users.login}</Card.Header>
-        </Card.Content>
-        {/* <Card.Content extra></Card.Content> */}
-      </Card>
+      <div className="main">
+        <div className="card">
+          <img src={this.state.image} alt="User" />
+          <h1>Name: {this.state.name}</h1>
+          <h2> Login: {this.state.login}</h2>
+          <a href={this.state.profileLink}>GitHub</a>
+          <br />
+          <UserFollowers followers={this.state.followers} />
+        </div>
+      </div>
     );
   }
 }
