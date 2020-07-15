@@ -1,13 +1,14 @@
 import React from "react";
+import "./UserFollowers.css";
 
 const UserFollowers = (props) => {
   return (
     <>
-      <h2>Followers:</h2>
+      <h3>Followers:</h3>
       {props.followers.map((follower) => (
         <div className="followers" key={follower.id}>
           <a href={follower.html_url}>{follower.login}</a>
-          <br />
+          {/* <br /> */}
         </div>
       ))}
     </>

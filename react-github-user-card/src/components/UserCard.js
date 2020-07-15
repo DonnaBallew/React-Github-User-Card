@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import UserFollowers from "./UserFollowers";
+import "./UserCard.css";
 
 class UserCard extends React.Component {
   state = {
@@ -28,13 +29,16 @@ class UserCard extends React.Component {
   render() {
     return (
       <div className="main">
+        <h1>Github User Card</h1>
         <div className="card">
-          <img src={this.state.image} alt="User" />
-          <h1>Name: {this.state.name}</h1>
-          <h2> Login: {this.state.login}</h2>
-          <a href={this.state.profileLink}>GitHub</a>
-          <br />
-          <UserFollowers followers={this.state.followers} />
+          <img className="pic" src={this.state.image} alt="User" />
+          <h2>Name: {this.state.name}</h2>
+          <h3> Login: {this.state.login}</h3>
+          <a href={this.state.profileLink}>GitHub Link</a>
+          <hr />
+          <div>
+            <UserFollowers followers={this.state.followers} />
+          </div>
         </div>
       </div>
     );
